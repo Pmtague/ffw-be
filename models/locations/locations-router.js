@@ -7,11 +7,7 @@ const restricted = require('../../auth/restricted-middleware.js');
 router.get('/', restricted, async (req, res) => {
     try {
         let userLocations = await Locations.findBy({ user_id: req.jwt.user_id })
-        if (userLocations.length ) {
-            res.json(userLocations);
-        } else {
-            res.send(err);
-        }
+        res.status(200).json(userLocations);
     } catch (error) {
         console.log(error);
         res.status(500).json({
