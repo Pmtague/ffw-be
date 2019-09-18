@@ -13,25 +13,25 @@ const User = require('../models/users/users-model.js')
     await db('users').truncate()
   })
 
-describe("server", () => {
-  describe('/ route', () => {
-    it("Should return status code 200", async () => {
-      let response = await request(server).get('/');
-      expect(response.status).toBe(200)
-    })
-  })
-})
+// describe("server", () => {
+//   describe('/ route', () => {
+//     it("Should return status code 200", async () => {
+//       let response = await request(server).get('/');
+//       expect(response.status).toBe(200)
+//     })
+//   })
+// })
 
 
 describe('/api/auth/register', () => {
-  it("should return code 201 after creation of user", async () => {
-    let response = await request(server)
-      .post("/api/auth/register")
-      .send({username: "username", password: "password"})
+  // it("should return code 201 after creation of user", async () => {
+  //   let response = await request(server)
+  //     .post("/api/auth/register")
+  //     .send({username: "username", password: "password"})
 
-    expect(response.status).toBe(201)
+  //   expect(response.status).toBe(201)
 
-  })
+  // })
 
   it("should return a  409 code when the username already exists", async () => {
     await request(server)

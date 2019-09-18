@@ -1,5 +1,11 @@
 const request = require('supertest');
 const server = require('../api/server.js');
+const db = require('../database/dbConfig.js') 
+const User = require('../models/users/users-model.js')
+
+  beforeEach(async () => {
+    await db('users').truncate()
+  })
 
 describe('server', () => {
     it('db environment set to testing', () => {
@@ -19,9 +25,12 @@ describe('server', () => {
     }); 
 
     let token = '';
-    describe.skip('POST /api/auth/login', () => {
-        it('should return 200 OK', () => {
-            const user = { username: 'user111', password: 'password' }
+    describe('POST /api/auth/login',  () => {
+        const user = { username: 'user111', password: 'password' }
+        it('should return 200 OK', async () => {
+            await request(server)
+              .post("/api/auth/register")
+              .send(user)
             return request(server)
             .post('/api/auth/login')
             .send(user)
@@ -32,7 +41,7 @@ describe('server', () => {
         });
     }); 
 
-    describe.skip('GET /api/users/session', () => {
+    describe('GET /api/users/session', () => {
         it('should return 200 OK', () => {
             return request(server)
             .get('/api/users/session')
